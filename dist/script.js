@@ -3895,11 +3895,15 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
+/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/sliders */ "./src/js/modules/sliders.js");
+
 
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.feedback-slider-item', '', '.main-prev-btn', '.main-next-btn');
+  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_1__["default"])('.main-slider-item', 'vertical');
 });
 
 /***/ }),
@@ -4197,6 +4201,105 @@ var modals = function modals() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/sliders.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/sliders.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+// dir - вертикально или горизонтально
+// prev и next - кнопки
+var sliders = function sliders(slides, dir, prev, next) {
+  var slideIndex = 0,
+      paused = false;
+  var items = document.querySelectorAll(slides);
+  items.forEach(function (item) {
+    item.classList.add('animated');
+  }); // function showSlides(n) {
+  //     if (n > items.length) {
+  //         slideIndex = 1;
+  //     }
+  //     if (n < 1) {
+  //         slideIndex = items.length;
+  //     }
+  //     items.forEach(item => {
+  //         item.style.display = 'none';
+  //     });
+  //     items[slideIndex-1].style.display = 'block';
+  // }
+  // showSlides(slideIndex);
+
+  function plusSlides(n) {
+    // showSlides(slideIndex += n);
+    slideIndex += n;
+
+    if (slideIndex > items.length - 1) {
+      slideIndex = 0;
+    } else if (slideIndex < 0) {
+      slideIndex = items.length - 1;
+    }
+
+    items.forEach(function (item) {
+      item.style.display = 'none';
+    });
+    items[slideIndex].style.display = 'block';
+  }
+
+  plusSlides(0);
+
+  try {
+    var prevBtn = document.querySelector(prev),
+        nextBtn = document.querySelector(next);
+    prevBtn.addEventListener('click', function () {
+      plusSlides(-1);
+      items[slideIndex].classList.remove('slideInLeft');
+      items[slideIndex].classList.add('slideInRight');
+    });
+    nextBtn.addEventListener('click', function () {
+      plusSlides(1);
+      items[slideIndex].classList.remove('slideInRight');
+      items[slideIndex].classList.add('slideInLeft');
+    });
+  } catch (e) {} // автоматическая анимация
+
+
+  function activateAnimation() {
+    if (dir === 'vertical') {
+      paused = setInterval(function () {
+        plusSlides(1);
+        items[slideIndex].classList.add('slideInDown');
+      }, 3000);
+    } else {
+      paused = setInterval(function () {
+        plusSlides(1);
+        items[slideIndex].classList.remove('slideInRight');
+        items[slideIndex].classList.add('slideInLeft');
+      }, 3000);
+    }
+  }
+
+  activateAnimation(); // при наведении - останавливаем анимацию
+
+  items[0].parentNode.addEventListener('mouseenter', function () {
+    clearInterval(paused);
+  }); // при отводе мышки - возобновляем анимацию
+
+  items[0].parentNode.addEventListener('mouseleave', function () {
+    activateAnimation();
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (sliders);
 
 /***/ })
 
