@@ -1725,3 +1725,8 @@ h4 {
     width: 25rem;
   }
 }
+
+.status {
+  text-align: center;
+  /* vertical-align: 50%; */
+}

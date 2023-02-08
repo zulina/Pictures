@@ -55,7 +55,7 @@ const modals = () => {
             clearInputs();
 
             // modal.style.display = "none";
-            modifyBody("", "0px");
+            modifyBody("", "0");
         });
 
         // при нажатии на подложку
@@ -69,7 +69,7 @@ const modals = () => {
                 clearInputs();
 
                 // modal.style.display = "none";
-                modifyBody("", "0px");
+                modifyBody("", "0");
             }
         });
     }

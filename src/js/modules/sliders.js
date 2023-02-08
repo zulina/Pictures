@@ -5,6 +5,7 @@ const sliders = (slides, dir, prev, next) => {
         paused = false;
     const items = document.querySelectorAll(slides);
     
+    // устанавливаем анимацию
     items.forEach(item => {
         item.classList.add('animated');
     });
@@ -27,10 +28,12 @@ const sliders = (slides, dir, prev, next) => {
 
     // showSlides(slideIndex);
 
+    // показ слайдов
     function plusSlides(n) {
         // showSlides(slideIndex += n);
         slideIndex += n;
 
+        // если дошли до конца или в начало
         if (slideIndex > (items.length - 1)) {
             slideIndex = 0;
         } else if (slideIndex < 0) {
@@ -44,6 +47,7 @@ const sliders = (slides, dir, prev, next) => {
     }
     plusSlides(0);
 
+    // может и не быть кнопок
     try {
         const prevBtn = document.querySelector(prev),
             nextBtn = document.querySelector(next);
