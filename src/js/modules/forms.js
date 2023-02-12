@@ -1,3 +1,5 @@
+import { postData } from "../services/requests";
+
 // модуль для работы со всеми формами
 const forms = () => {
     const form = document.querySelectorAll('form'),
@@ -15,17 +17,6 @@ const forms = () => {
     const path = {
         designer: 'assets/server.php',
         question: 'assets/question.php'
-    };
-
-    // при отправке данных
-    const postData = async (url, data) => {
-        // для постинга всегда указываем объект с параметрами
-        let res = await fetch(url, {
-            method: "POST",
-            body: data
-        });
-        // ?
-        return await res.text();
     };
 
     // для всех блоков загрузки файла
