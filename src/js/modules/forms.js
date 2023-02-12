@@ -1,12 +1,7 @@
-import checkNumInputs from './checkNumInputs';
-
 // модуль для работы со всеми формами
 const forms = () => {
     const form = document.querySelectorAll('form'),
         upload = document.querySelectorAll('[name="upload"]');
-
-    // при вводе номера убираем всё что не цифры
-    checkNumInputs('input[name="user_phone"]');
 
     const message = {
         loading: 'Загрузка...',
