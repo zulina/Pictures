@@ -63,6 +63,35 @@ const forms = () => {
 
             const formData = new FormData(item);
 
+            // если это форма калькулятора
+            if (item.classList.contains('calc_form')) {
+                // добавляем все выбранные данные в калькуляторе к данным формы
+                const size = document.querySelector("#size");
+                if (size.value == '') {
+                    formData.append("size", "");
+                } else {
+                    formData.append("size", size.options[size.selectedIndex].text);
+                }
+                const material = document.querySelector('#material');
+                if (material.value == '') {
+                    formData.append("material", "");
+                } else {
+                    formData.append("material", material.options[material.selectedIndex].text);
+                }
+                const options = document.querySelector('#options');
+                if (options.value == '') {
+                    formData.append("options", "");
+                } else {
+                    formData.append("options", options.options[options.selectedIndex].text);
+                }
+                formData.append("promocode", document.querySelector('.promocode').value);
+                if (size.value == '' || material.value == '') {
+                    formData.append("total_price", "");
+                } else {
+                    formData.append("total_price", document.querySelector('.calc-price').textContent);
+                }
+            }
+
             let api;
             // определяем на какой адрес будем оправлять
             item.closest('.popup-design') || item.classList.contains('calc_form')
