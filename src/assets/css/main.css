@@ -902,9 +902,38 @@ h4 {
 .often-questions .accordion-heading span {
   border-bottom: 2px dotted #333;
 }
-.often-questions .accordion-block {
+/* устанавливаем стиль для элемента span,
+у которого родитель с тегом р и классом active-style */
+.often-questions p.active-style span {
+  color: #E950D7;
+  font-weight: 900;
+  text-decoration: none;
+  border: 0;
+}
+/* У элемента с классом accordion-heading должен быть класс активности 
+и следующий за ним элемент должен иметь класс accordion-block.
+А стиль устанавливается для этого же следующего элемента */
+.often-questions .accordion-heading.active+.accordion-block {
+  display: block;
+}
+/* ---------------------- вариант 2 ----------------------- */
+/* .often-questions .accordion-block {
+  display: none;
   margin-top: 1rem;
   background-color: #f7e7e6;
+  padding: 3rem 4rem;
+} */
+.often-questions .accordion-block {
+  background-color: #f7e7e6;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+}
+.often-questions .accordion-block.active-content {
+  opacity: 1;
+  overflow: visible;
+  margin-top: 1rem;
   padding: 3rem 4rem;
 }
 .often-questions .accordion-block:before {
