@@ -1,5 +1,7 @@
 const mask = (selector) => {
 
+    const matrix = '+8 (___) ___ __ __'; // шаблон
+
     let setCursorPosition = (startPos, endPos, elem) => {
         elem.focus();
 
@@ -39,9 +41,7 @@ const mask = (selector) => {
     function createMask(event) {
         const startPos = this.selectionStart;
         const startValue = this.value;
-        // шаблон
-        let matrix = '+8 (___) ___ __ __',
-            i = 0,
+        let i = 0,
             def = matrix.replace(/\D/g, ''),
             // value получаем из input
             // получаем только цифры
@@ -80,6 +80,7 @@ const mask = (selector) => {
     let inputs = document.querySelectorAll(selector);
 
     inputs.forEach(input => {
+        input.setAttribute('minlength', matrix.length);
         input.addEventListener('input', createMask);
         input.addEventListener('focus', createMask);
         input.addEventListener('blur', createMask);
