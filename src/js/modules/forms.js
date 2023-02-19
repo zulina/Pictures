@@ -23,6 +23,7 @@ const forms = () => {
     upload.forEach(item => {
         item.addEventListener('input', () => {
             console.log(item.files[0]);
+            // обрезаем имя файла
             let name = item.files[0].name.split('.')[0];
             name.length < 6 ? name = item.files[0].name
                 : name = name.substring(0,5) + "..." + item.files[0].name.split('.')[1];
