@@ -13,10 +13,16 @@ const drop = () => {
         e.stopPropagation();
     }
 
+    function isImage(image) {
+        return image.type.search(/image/) >= 0 ? true : false;
+    }
+
     function highlight(item) {
-        // ближайший элемент с классом file_upload
-        item.closest('.file_upload').style.border = "5px solid yellow";
-        item.closest('.file_upload').style.backgroundColor = "rgba(0,0,0, .7)";
+        // if (isImage(e.dataTransfer.files[0])) {
+            // ближайший элемент с классом file_upload
+            item.closest('.file_upload').style.border = "5px solid yellow";
+            item.closest('.file_upload').style.backgroundColor = "rgba(0,0,0, .7)";
+        // }
     }
 
     function unhighlight(item) {
@@ -43,13 +49,18 @@ const drop = () => {
 
     fileInputs.forEach(input => {
         input.addEventListener('drop', (e) => {
-            input.files = e.dataTransfer.files;
-            // обрезаем имя файла
-            let name = input.files[0].name.split('.')[0];
-            name.length < 6 ? name = input.files[0].name
-                : name = name.substring(0,5) + "..." + input.files[0].name.split('.')[1];
-            // выбираем предыдущий соседний элемент
-            input.previousElementSibling.textContent = name;
+            if (isImage(e.dataTransfer.files[0])) {
+                input.files = e.dataTransfer.files;
+                // обрезаем имя файла
+                let name = input.files[0].name.split('.')[0];
+                name.length < 6 ? name = input.files[0].name
+                    : name = name.substring(0,5) + "..." + input.files[0].name.split('.')[1];
+                // выбираем предыдущий соседний элемент
+                input.previousElementSibling.textContent = name;
+                }
+            else {
+                e.preventDefault();
+            }
         });
     });
 };
